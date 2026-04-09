@@ -56,3 +56,27 @@ By the end of brainstorming, we have:
 This isn't a vague direction anymore. It's a design we can implement.
 
 **Key takeaway:** We haven't written a line of code, but we've already avoided the biggest risks — building the wrong thing, over-engineering, scope creep. The brainstorming skill made us answer hard questions before they became expensive.
+
+---
+
+## Phase 2: From Design to Plan
+
+With a validated design, we transition to planning. The writing-plans skill takes the design and breaks it into bite-sized tasks.
+
+Each task is specific:
+- Exact files to create or modify
+- The code to write (or in our case, the content to produce)
+- How to test it
+- When to commit
+
+For PromptCraft, the plan might break down into:
+
+1. **Set up Streamlit app skeleton** — Basic UI with input area
+2. **Implement rule-based analyzer** — Pattern matching for common issues
+3. **Add LLM analysis integration** — Claude API call with prompt template
+4. **Build suggestion display** — Format and present feedback
+5. **Create refined prompt output** — Generate improved version
+
+Each task stands alone. You can complete task 1 without knowing the details of task 5. This independence is deliberate — it's what makes subagent-driven development possible.
+
+**Key takeaway:** The plan isn't just a to-do list. It's a contract between the designer (you, during brainstorming) and the implementers (subagents, during development). Clear plans prevent drift.

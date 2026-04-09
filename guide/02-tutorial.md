@@ -151,3 +151,55 @@ Not every task goes smoothly. The implementer might report:
 When blocked, the workflow doesn't force ahead. It escalates to you. Maybe the task needs to be broken down. Maybe the plan needs revision. Maybe you need to go back to brainstorming.
 
 **Key takeaway:** Subagent-driven development trades session continuity for clarity. Fresh context per task, systematic review, explicit escalation when stuck. The result is higher quality with less cognitive load.
+
+---
+
+## Wrap-Up: What We Built and What We Avoided
+
+We've walked through building PromptCraft using the superpowers workflow. Let's recap what the structured approach gave us:
+
+### What We Built
+- A validated design (not a vague idea)
+- A clear plan (not a mental to-do list)
+- Reviewed code (not "it looks right to me")
+
+### What We Avoided
+- **Requirements drift** — Brainstorming locked in decisions before they became expensive to change
+- **Context pollution** — Fresh subagents per task meant no accumulated confusion
+- **Review theater** — Two-stage review with verification, not rubber-stamping
+- **Forcing through blockers** — Escalation paths when things went wrong
+
+### The Flexibility You Keep
+
+Superpowers isn't a rigid pipeline that traps you. If a major new requirement emerges during implementation, subagents escalate rather than forcing ahead. You can redirect to brainstorming or planning when needed.
+
+The workflow adapts to reality, not the other way around.
+
+---
+
+## Quick Reference
+
+### When to Use Each Skill
+
+| Skill | Use When... |
+|-------|-------------|
+| **Brainstorming** | Starting any new feature, project, or significant change. Always brainstorm before coding. |
+| **Code Review (Requesting)** | After completing a task, before merging, or when you want a fresh perspective. |
+| **Code Review (Receiving)** | When you get feedback. Verify before implementing. Push back when appropriate. |
+| **Subagent-Driven Development** | Executing a plan with multiple independent tasks. Keeps context clean, enables systematic review. |
+
+### Key Principles
+
+- **One question at a time** — Don't overwhelm. Brainstorming is dialogue, not interrogation.
+- **Verify before implementing** — Feedback might be wrong. Check the codebase.
+- **Fresh context per task** — Let subagents start clean. Don't inherit confusion.
+- **Two-stage review** — Spec compliance first, code quality second.
+- **Escalate when blocked** — Don't force through. Surface problems early.
+
+### Try It Yourself
+
+1. Install the superpowers plugin: see the [superpowers repo](https://github.com/obra/superpowers)
+2. Start your next project with "Let's brainstorm this"
+3. Watch how the workflow guides you from idea to implementation
+
+The patterns feel different at first. After a few projects, they become second nature — and you'll wonder how you ever worked without them.

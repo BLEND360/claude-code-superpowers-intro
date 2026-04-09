@@ -80,3 +80,74 @@ For PromptCraft, the plan might break down into:
 Each task stands alone. You can complete task 1 without knowing the details of task 5. This independence is deliberate — it's what makes subagent-driven development possible.
 
 **Key takeaway:** The plan isn't just a to-do list. It's a contract between the designer (you, during brainstorming) and the implementers (subagents, during development). Clear plans prevent drift.
+
+---
+
+## Phase 3: Subagent-Driven Development
+
+Now we build. But instead of one long session where context accumulates and confusion grows, we use subagent-driven development.
+
+### Fresh Agents Per Task
+
+For each task in our plan, Claude dispatches a fresh subagent — an implementer with no prior context. The controller (Claude in your main session) provides exactly what the implementer needs:
+
+- The task description from the plan
+- Relevant code snippets and file contents
+- Project conventions and constraints
+
+The implementer doesn't inherit your session's history. It can't get confused by decisions you made three hours ago that no longer apply. It gets clean context, does its job, and reports back.
+
+### The Two-Stage Review
+
+After the implementer finishes, two reviewers check the work:
+
+**Stage 1: Spec Compliance**
+- Did the code do what the spec asked?
+- Is anything missing?
+- Is there scope creep (features that weren't requested)?
+
+This isn't about code quality yet — it's about correctness. If the spec said "display suggestions as a bulleted list" and the implementer used a numbered list, that's a spec compliance issue.
+
+**Stage 2: Code Quality**
+- Is the code well-structured?
+- Are there edge cases missed?
+- Any security concerns, performance issues, or maintainability problems?
+
+Only after passing spec compliance do we check code quality. This order matters — there's no point polishing code that doesn't meet requirements.
+
+### Handling Feedback (Receiving Code Review)
+
+Here's where many developers — and AI assistants — go wrong. When a reviewer says "this function should handle empty inputs," the temptation is to respond with "You're absolutely right! Let me fix that."
+
+That's performative agreement. It feels collaborative but skips the critical step: verification.
+
+The receiving-code-review skill enforces a different pattern:
+
+1. **Read** the feedback completely
+2. **Restate** the requirement in your own words
+3. **Verify** against the actual codebase — is this a real issue?
+4. **Respond** with technical acknowledgment or reasoned pushback
+5. **Implement** if the feedback is valid
+
+Sometimes the reviewer is wrong. Maybe empty inputs are already handled upstream. Maybe the suggested change would break something else. Verification catches these cases before you implement bad advice.
+
+### The Feedback Loop
+
+When reviews find issues, the implementer fixes them — and the reviewer reviews again. This loop continues until the review passes:
+
+```
+Implement → Review → Issues found → Fix → Re-review → Pass
+```
+
+It sounds slow. In practice, it's faster than the alternative: shipping buggy code, discovering issues in production, context-switching back to fix them weeks later.
+
+### What If You're Blocked?
+
+Not every task goes smoothly. The implementer might report:
+
+- **NEEDS_CONTEXT:** Missing information. The controller provides it and re-dispatches.
+- **BLOCKED:** Can't complete the task. Maybe the spec is wrong, maybe the task is too complex.
+
+When blocked, the workflow doesn't force ahead. It escalates to you. Maybe the task needs to be broken down. Maybe the plan needs revision. Maybe you need to go back to brainstorming.
+
+**Key takeaway:** Subagent-driven development trades session continuity for clarity. Fresh context per task, systematic review, explicit escalation when stuck. The result is higher quality with less cognitive load.

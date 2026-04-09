@@ -93,9 +93,13 @@ Each task stands alone. You can complete task 1 without knowing the details of t
 
 ## Phase 3: Subagent-Driven Development
 
-Now we build:
+Now we build. After planning completes, superpowers asks how you want to execute:
 
-**You:** "Use superpowers subagent-driven development to execute this plan."
+**Claude:** "Plan complete. Two execution options: Subagent-Driven (recommended) or Inline Execution. Which approach?"
+
+**You:** "Subagent-driven."
+
+Or you can be more casual — saying **"I want to implement this using superpowers"** defaults to subagent-driven development.
 
 Instead of one long session where context accumulates and confusion grows, Claude uses subagent-driven development.
 
@@ -222,7 +226,7 @@ Or install from source — see the [superpowers repo](https://github.com/obra/su
 
 1. Start your next project with: **"Let's use superpowers to brainstorm this"**
 2. After brainstorming, say: **"Use superpowers to write a plan"**
-3. When ready to build, say: **"Use superpowers subagent-driven development"**
+3. When the plan is ready, Claude will ask which execution approach you want — choose **"Subagent-driven"** (or just say **"Implement this with superpowers"** to use the default)
 4. Watch how the workflow guides you from idea to implementation
 
 The patterns feel different at first. After a few projects, they become second nature — and you'll wonder how you ever worked without them.

@@ -10,7 +10,11 @@ This isn't a transcript of an actual session, but it's representative of how the
 
 We start with a rough idea: "Build a tool that helps people write better prompts."
 
-That's not a spec. It's a direction. Brainstorming turns it into something we can actually build.
+That's not a spec. It's a direction. To turn it into something we can actually build, we invoke the brainstorming skill:
+
+**You:** "Let's use superpowers to brainstorm a prompt engineering helper."
+
+Claude recognizes this as a request to use the brainstorming skill and begins the structured design dialogue.
 
 ### One Question at a Time
 
@@ -61,7 +65,11 @@ This isn't a vague direction anymore. It's a design we can implement.
 
 ## Phase 2: From Design to Plan
 
-With a validated design, we transition to planning. The writing-plans skill takes the design and breaks it into bite-sized tasks.
+With a validated design, we transition to planning:
+
+**You:** "Use superpowers to write a plan for this design."
+
+The writing-plans skill takes the design and breaks it into bite-sized tasks.
 
 Each task is specific:
 - Exact files to create or modify
@@ -85,7 +93,11 @@ Each task stands alone. You can complete task 1 without knowing the details of t
 
 ## Phase 3: Subagent-Driven Development
 
-Now we build. But instead of one long session where context accumulates and confusion grows, we use subagent-driven development.
+Now we build:
+
+**You:** "Use superpowers subagent-driven development to execute this plan."
+
+Instead of one long session where context accumulates and confusion grows, Claude uses subagent-driven development.
 
 ### Fresh Agents Per Task
 
@@ -198,8 +210,19 @@ The workflow adapts to reality, not the other way around.
 
 ### Try It Yourself
 
-1. Install the superpowers plugin: see the [superpowers repo](https://github.com/obra/superpowers)
-2. Start your next project with "Let's brainstorm this"
-3. Watch how the workflow guides you from idea to implementation
+**Installation:**
+
+```bash
+claude plugins:install superpowers
+```
+
+Or install from source — see the [superpowers repo](https://github.com/obra/superpowers) for details.
+
+**Getting started:**
+
+1. Start your next project with: **"Let's use superpowers to brainstorm this"**
+2. After brainstorming, say: **"Use superpowers to write a plan"**
+3. When ready to build, say: **"Use superpowers subagent-driven development"**
+4. Watch how the workflow guides you from idea to implementation
 
 The patterns feel different at first. After a few projects, they become second nature — and you'll wonder how you ever worked without them.

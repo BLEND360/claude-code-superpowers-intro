@@ -17,7 +17,13 @@ If this sounds familiar, you're not alone. Most developers using AI assistants h
 
 [Superpowers](https://github.com/obra/superpowers) is a plugin for Claude Code that adds structured workflows to your development process. Think of it as guardrails, not restrictions — patterns that make you faster by preventing the chaos described above.
 
-It's a collection of "skills" — modular workflows that Claude invokes when appropriate. You don't have to memorize them; Claude knows when to use them. But understanding what they do helps you get the most out of them.
+**To install:**
+
+```bash
+claude plugins:install superpowers
+```
+
+It's a collection of "skills" — modular workflows you invoke by asking Claude to use them. Say **"Let's use superpowers to brainstorm this"** or **"Use superpowers to write a plan"** and Claude activates the appropriate workflow. Understanding what each skill does helps you get the most out of them.
 
 This guide focuses on three skills that transform how you work:
 

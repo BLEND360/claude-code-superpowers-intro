@@ -27,6 +27,8 @@ If this sounds familiar, you're not alone. Most developers using AI assistants h
 
 It's a collection of "skills" — modular workflows that trigger automatically when Claude recognizes a relevant situation. Start building something, and Claude will invoke brainstorming before jumping into code. Finish a task, and it triggers code review.
 
+**How to know it's working:** Depending on your version of Claude Code, you'll see the skill name in the status line — something like "Using superpowers:brainstorming" or "Launching skill: superpowers:writing-plans". This confirms superpowers is active, not default Claude behavior.
+
 Sometimes Claude falls back to default behavior and skips the skill. When that happens, you can get it back on track by being explicit: **"Let's use superpowers to brainstorm this"** or **"Use superpowers to write a plan"**. Understanding what each skill does helps you notice when to nudge Claude back.
 
 This guide focuses on three skills that transform how you work:

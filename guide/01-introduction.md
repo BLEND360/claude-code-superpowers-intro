@@ -20,10 +20,14 @@ If this sounds familiar, you're not alone. Most developers using AI assistants h
 **To install:**
 
 ```bash
-claude plugins:install superpowers
+/plugin install superpowers@claude-plugins-official
 ```
 
-It's a collection of "skills" — modular workflows you invoke by asking Claude to use them. Say **"Let's use superpowers to brainstorm this"** or **"Use superpowers to write a plan"** and Claude activates the appropriate workflow. Understanding what each skill does helps you get the most out of them.
+(See the [superpowers repo](https://github.com/obra/superpowers) for other installation options including Cursor, Codex, and Gemini CLI.)
+
+It's a collection of "skills" — modular workflows that trigger automatically when Claude recognizes a relevant situation. Start building something, and Claude will invoke brainstorming before jumping into code. Finish a task, and it triggers code review.
+
+Sometimes Claude falls back to default behavior and skips the skill. When that happens, you can get it back on track by being explicit: **"Let's use superpowers to brainstorm this"** or **"Use superpowers to write a plan"**. Understanding what each skill does helps you notice when to nudge Claude back.
 
 This guide focuses on three skills that transform how you work:
 

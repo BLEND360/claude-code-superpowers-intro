@@ -10,11 +10,13 @@ This isn't a transcript of an actual session, but it's representative of how the
 
 We start with a rough idea: "Build a tool that helps people write better prompts."
 
-That's not a spec. It's a direction. To turn it into something we can actually build, we invoke the brainstorming skill:
+That's not a spec. It's a direction. Superpowers should trigger automatically here — Claude recognizes you're starting something new and invokes the brainstorming skill.
+
+If it doesn't (sometimes Claude falls back to default behavior), you can be explicit:
 
 **You:** "Let's use superpowers to brainstorm a prompt engineering helper."
 
-Claude recognizes this as a request to use the brainstorming skill and begins the structured design dialogue.
+Either way, Claude begins the structured design dialogue.
 
 ### One Question at a Time
 
@@ -95,7 +97,7 @@ Each task stands alone. You can complete task 1 without knowing the details of t
 
 Now we build. After planning completes, superpowers asks how you want to execute:
 
-**Claude:** "Plan complete. Two execution options: Subagent-Driven (recommended) or Inline Execution. Which approach?"
+**Claude:** "Plan complete. Two execution options: Subagent-Driven (recommended) — fresh subagent per task with review between tasks — or Inline Execution (using the executing-plans skill) — batch execution with checkpoints. Which approach?"
 
 **You:** "Subagent-driven."
 
@@ -139,11 +141,12 @@ That's performative agreement. It feels collaborative but skips the critical ste
 
 The receiving-code-review skill enforces a different pattern:
 
-1. **Read** the feedback completely
-2. **Restate** the requirement in your own words
+1. **Read** the feedback completely without reacting
+2. **Understand** — restate the requirement in your own words (or ask for clarification)
 3. **Verify** against the actual codebase — is this a real issue?
-4. **Respond** with technical acknowledgment or reasoned pushback
-5. **Implement** if the feedback is valid
+4. **Evaluate** — is this technically sound for *this* codebase?
+5. **Respond** with technical acknowledgment or reasoned pushback
+6. **Implement** if the feedback is valid, one item at a time
 
 Sometimes the reviewer is wrong. Maybe empty inputs are already handled upstream. Maybe the suggested change would break something else. Verification catches these cases before you implement bad advice.
 
@@ -217,16 +220,17 @@ The workflow adapts to reality, not the other way around.
 **Installation:**
 
 ```bash
-claude plugins:install superpowers
+/plugin install superpowers@claude-plugins-official
 ```
 
-Or install from source — see the [superpowers repo](https://github.com/obra/superpowers) for details.
+See the [superpowers repo](https://github.com/obra/superpowers) for other platforms (Cursor, Codex, Gemini CLI, etc.).
 
 **Getting started:**
 
-1. Start your next project with: **"Let's use superpowers to brainstorm this"**
-2. After brainstorming, say: **"Use superpowers to write a plan"**
-3. When the plan is ready, Claude will ask which execution approach you want — choose **"Subagent-driven"** (or just say **"Implement this with superpowers"** to use the default)
-4. Watch how the workflow guides you from idea to implementation
+1. Start your next project — superpowers should trigger brainstorming automatically
+2. If Claude skips the skill and jumps into code, nudge it: **"Let's use superpowers to brainstorm this"**
+3. After brainstorming, planning triggers automatically (or say **"Use superpowers to write a plan"**)
+4. When the plan is ready, Claude asks which execution approach you want — choose **"Subagent-driven"** (or just say **"Implement this with superpowers"**)
+5. Watch how the workflow guides you from idea to implementation
 
 The patterns feel different at first. After a few projects, they become second nature — and you'll wonder how you ever worked without them.

@@ -113,3 +113,62 @@ if st.session_state.started:
         if user_input:
             state["rounds"][-1]["user_response"] = user_input
             st.rerun()
+
+    # --- Refined Output ---
+    if state["current_best"]:
+        st.divider()
+        st.subheader("Current Best Prompt")
+        st.markdown(state["current_best"])
+
+        # --- Side-by-Side Comparison ---
+        st.divider()
+        st.subheader("Compare: Original vs. Refined")
+
+        test_input = st.text_area(
+            "Test input (the content your prompt will process)",
+            height=100,
+            placeholder="Paste the text or input your prompt would typically receive...",
+            key="test_input",
+        )
+
+        if st.button("Run Comparison", type="primary", disabled=not test_input):
+            try:
+                client = create_client(api_key)
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    st.markdown("**Original Prompt Output**")
+                    original_output = st.write_stream(
+                        stream_message(
+                            client=client,
+                            system="",
+                            messages=[
+                                {"role": "user", "content": f"{state['original_prompt']}\n\n{test_input}"}
+                            ],
+                            model=DEFAULT_MODEL,
+                            max_tokens=MAX_TOKENS,
+                        )
+                    )
+
+                with col2:
+                    st.markdown("**Refined Prompt Output**")
+                    refined_output = st.write_stream(
+                        stream_message(
+                            client=client,
+                            system="",
+                            messages=[
+                                {"role": "user", "content": f"{state['current_best']}\n\n{test_input}"}
+                            ],
+                            model=DEFAULT_MODEL,
+                            max_tokens=MAX_TOKENS,
+                        )
+                    )
+
+                state["comparison"] = {
+                    "test_input": test_input,
+                    "original_output": original_output,
+                    "refined_output": refined_output,
+                }
+
+            except APIError as e:
+                st.error(f"API Error: {e}")

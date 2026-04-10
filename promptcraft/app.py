@@ -1,7 +1,11 @@
+import os
 import streamlit as st
+from dotenv import load_dotenv
 from config import SKILL_LEVELS, DEFAULT_MODEL, MAX_TOKENS, get_system_prompt
 from api_client import create_client, stream_message, APIError
 from refiner import init_session_state, build_messages, parse_response_type, add_round
+
+load_dotenv()
 
 st.set_page_config(page_title="PromptCraft", page_icon="✨", layout="wide")
 st.title("PromptCraft")
@@ -18,7 +22,12 @@ state = st.session_state.state
 # --- Sidebar ---
 with st.sidebar:
     st.header("Settings")
-    api_key = st.text_input("Anthropic API Key", type="password", help="Get a key at https://console.anthropic.com/settings/keys")
+    api_key = st.text_input(
+        "Anthropic API Key",
+        type="password",
+        value=os.environ.get("ANTHROPIC_API_KEY", ""),
+        help="Get a key at https://console.anthropic.com/settings/keys. Auto-loaded from .env if present.",
+    )
     state["skill_level"] = st.selectbox("Skill Level", SKILL_LEVELS, index=SKILL_LEVELS.index(state["skill_level"]))
 
     st.divider()

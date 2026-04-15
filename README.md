@@ -58,6 +58,18 @@ The full design, plan, and content artifacts live in `docs/superpowers/`:
 
 The current draft pptx (and PDF export) lives at [docs/superpowers/workshops/Claude Code Capabilities Workshop.pptx](docs/superpowers/workshops/). The user and a co-presenter build the actual decks themselves from the content specs above.
 
+### Status — paused for partner review
+
+Workshop content is complete (16 of 21 plan tasks done). The remaining 5 tasks are paused pending partner review of the slide specs, presenter scripts, and demo scripts. Once approved, these can be resumed:
+
+- **Task 17 — example CLAUDE.md asset** for the W1 Demo 1 fresh-workspace walkthrough (`demo-assets/w1-demo1-claude-md/CLAUDE.md.example`)
+- **Task 18 — custom Skill asset** for the W2 Demo 2 authoring demo (`demo-assets/w2-demo2-skill/.claude/skills/review-prompt-quality/SKILL.md`)
+- **Task 19 — Snowflake safety hook asset** for the W2 90-min bonus demo (`demo-assets/w2-bonus-snowflake-hook/` — settings fragment + `safety_hook.py` + README)
+- **Task 20 — pre-staged demo branches** (`workshop-w1-demo`, `workshop-w2-demo`) so demos can `git checkout` to known-good states
+- **Task 21 — workshops index README + final cross-link verification** (`docs/superpowers/workshops/README.md`)
+
+All content for Tasks 17–19 is fully specified inline in [the plan](docs/superpowers/plans/2026-04-15-claude-code-workshops.md). To resume, ask Claude to "resume the workshops plan."
+
 ### Topic coverage map
 
 | Capability (slide-2 diagram) | Workshop |

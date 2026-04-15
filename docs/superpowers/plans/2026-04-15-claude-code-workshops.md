@@ -10,6 +10,38 @@
 
 ---
 
+## Status (2026-04-15)
+
+**Paused after Task 16, awaiting partner review of the workshop content before generating demo assets and pre-staged branches.**
+
+| Task | Status | Artifact |
+|---|---|---|
+| 1 | ✅ Done | Workshops directory tree |
+| 2 | ✅ Done | `slide-3-rewrite.md` |
+| 3 | ✅ Done | `magic-prompts.md` |
+| 4 | ✅ Done | `workshop-1/slides.md` |
+| 5 | ✅ Done | `workshop-1/presenter-script.md` |
+| 6 | ✅ Done | `workshop-1/demo-1-script.md` |
+| 7 | ✅ Done | `workshop-1/demo-2-script.md` |
+| 8 | ✅ Done | `workshop-1/bonus-demo-script.md` |
+| 9 | ✅ Done | `workshop-2/slides.md` (note: 1.5 min timeline drift; closing currently 0:30 instead of 2:00 — adjust during slide build) |
+| 10 | ✅ Done | `workshop-2/presenter-script.md` |
+| 11 | ✅ Done | `workshop-2/demo-1-script.md` |
+| 12 | ✅ Done | `workshop-2/demo-2-script.md` |
+| 13 | ✅ Done | `workshop-2/bonus-demo-script.md` |
+| 14 | ✅ Done | `pre-workshop-w1.md` |
+| 15 | ✅ Done | `pre-workshop-w2.md` |
+| 16 | ✅ Done | `rehearsal-checklist.md` |
+| 17 | ⏸ Paused | `demo-assets/w1-demo1-claude-md/CLAUDE.md.example` |
+| 18 | ⏸ Paused | `demo-assets/w2-demo2-skill/.claude/skills/review-prompt-quality/SKILL.md` |
+| 19 | ⏸ Paused | `demo-assets/w2-bonus-snowflake-hook/` (settings fragment + `safety_hook.py` + README) |
+| 20 | ⏸ Paused | Pre-staged demo branches `workshop-w1-demo`, `workshop-w2-demo` |
+| 21 | ⏸ Paused | `docs/superpowers/workshops/README.md` (workshops index) + final verification pass |
+
+**To resume:** ask Claude to "resume the workshops plan" and Tasks 17–21 will execute. Task 17–19 content is fully specified inline in this plan (no judgment needed). Task 20 is mechanical git branch creation. Task 21 is the index + cross-link verification.
+
+---
+
 ## File Structure
 
 ```

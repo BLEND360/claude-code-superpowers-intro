@@ -1,0 +1,29 @@
+# CLAUDE.md — Demo Project
+
+This is an example CLAUDE.md used in Workshop 1 Demo 1.
+
+## Project Overview
+
+Small Python utility project. Used purely for live workshop demos.
+
+## Build & Test Commands
+
+- Run tests: `pytest`
+- Lint: `ruff check .`
+- Format: `ruff format .`
+
+## Code Standards
+
+- Python 3.12+
+- Type hints on all public functions
+- Two-space indent (just because — don't argue with the project rule)
+
+## Architecture
+
+- `src/utils.py` — shared helpers (date, string, validation)
+- `tests/` — pytest tests, mirror src layout
+
+## Gotchas
+
+- Never edit migrations directly. Use the migration tool.
+- The `legacy/` directory is read-only — don't modify.

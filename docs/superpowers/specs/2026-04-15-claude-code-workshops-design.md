@@ -227,6 +227,27 @@ Surfaced for tracking; not blocking design approval.
 
 ---
 
+# Deliverables
+
+Implementation produces the following artifacts. The user and a co-presenter build the actual slide decks themselves from these specs in their preferred MS-compatible format (pptx or similar).
+
+1. **Slide-by-slide content specs** — one markdown file per workshop. Per slide: title, body bullets, ~60–90 sec speaker notes, demo cues, time markers.
+2. **Presenter scripts / talking points** — full prose per topic so co-presenters can deliver consistently.
+3. **Demo scripts** — exact commands, prompts, expected outputs, fallback plans, and what to point at on screen for each demo (W1 Demo 1, W1 Demo 2, W2 Demo 1, W2 Demo 2, W1 90-min bonus, W2 90-min bonus).
+4. **Engineered "magic prompts"** — the W1 Demo 2 brainstorm seed prompt + steering question designed to reliably trigger the visual companion offer. Includes fallback narration if the offer doesn't fire.
+5. **Pre-workshop attendee materials** — install instructions, verification screenshot/steps, pre-read pointer, troubleshooting FAQ. Two versions: pre-W1 and pre-W2.
+6. **Demo asset files** in this repo:
+   - `.claude/skills/review-prompt-quality/SKILL.md` — the W2 Demo 2 custom skill
+   - Snowflake safety hook example — settings.json fragment + the hook script for the W2 90-min bonus
+   - Example CLAUDE.md files for the W1 Demo 1 fresh-workspace walkthrough
+7. **Pre-staged demo branches** in this repo:
+   - `workshop-w1-demo` — clean state for the W1 fresh-brainstorm demo
+   - `workshop-w2-demo` — solution-branch state with Context7/GitHub MCP instructions ready to follow live
+8. **Slide 3 rewrite** — markdown spec for the corrected Workshop-wise topics slide reflecting the new bucketing.
+9. **Rehearsal checklist + risk register** — what to dry-run, what can go wrong in each demo, and the fallback for each failure mode.
+
+**Not produced by implementation:** actual .pptx files, custom diagrams (the slide-2 capability diagram is reused as-is), Snowflake sandbox provisioning, API key procurement, live demo delivery.
+
 # Out of scope
 
 - Claude Agent SDK (embedding Claude in custom apps) — could be its own future workshop.

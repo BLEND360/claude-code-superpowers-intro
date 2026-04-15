@@ -12,7 +12,7 @@
 
 ## Status (2026-04-15)
 
-**Paused after Task 16, awaiting partner review of the workshop content before generating demo assets and pre-staged branches.**
+**Paused after Task 17, awaiting partner review of the workshop content before generating remaining demo assets and pre-staged branches.**
 
 | Task | Status | Artifact |
 |---|---|---|
@@ -32,13 +32,13 @@
 | 14 | ✅ Done | `pre-workshop-w1.md` |
 | 15 | ✅ Done | `pre-workshop-w2.md` |
 | 16 | ✅ Done | `rehearsal-checklist.md` |
-| 17 | ⏸ Paused | `demo-assets/w1-demo1-claude-md/CLAUDE.md.example` |
+| 17 | ✅ Done | `demo-assets/w1-demo1-claude-md/CLAUDE.md.example` |
 | 18 | ⏸ Paused | `demo-assets/w2-demo2-skill/.claude/skills/review-prompt-quality/SKILL.md` |
 | 19 | ⏸ Paused | `demo-assets/w2-bonus-snowflake-hook/` (settings fragment + `safety_hook.py` + README) |
 | 20 | ⏸ Paused | Pre-staged demo branches `workshop-w1-demo`, `workshop-w2-demo` |
 | 21 | ⏸ Paused | `docs/superpowers/workshops/README.md` (workshops index) + final verification pass |
 
-**To resume:** ask Claude to "resume the workshops plan" and Tasks 17–21 will execute. Task 17–19 content is fully specified inline in this plan (no judgment needed). Task 20 is mechanical git branch creation. Task 21 is the index + cross-link verification.
+**To resume:** ask Claude to "resume the workshops plan" and Tasks 18–21 will execute. Task 18–19 content is fully specified inline in this plan (no judgment needed). Task 20 is mechanical git branch creation. Task 21 is the index + cross-link verification.
 
 ---
 

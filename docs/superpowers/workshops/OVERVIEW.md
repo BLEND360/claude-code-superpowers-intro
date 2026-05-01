@@ -2,6 +2,8 @@
 
 A condensed tour of the two-workshop curriculum. Use this to orient a new reader (co-presenter, reviewer, or attendee lead) before diving into specs, presenter scripts, or demos.
 
+> **Workshop demo project under review.** A brainstorm of candidate W1 demo projects (and their W2 extensions) is in progress at [../../workshops-brainstorming/2026-05-01-w1-demo-candidates-brainstorm.md](../../workshops-brainstorming/2026-05-01-w1-demo-candidates-brainstorm.md). The PromptCraft-based materials described below are the current baseline; the brainstorm evaluates whether to keep, replace, or split it across the two workshops.
+
 - **Full spec:** [2026-04-15-claude-code-workshops-design.md](../specs/2026-04-15-claude-code-workshops-design.md)
 - **Implementation plan:** [2026-04-15-claude-code-workshops.md](../plans/2026-04-15-claude-code-workshops.md)
 - **Target delivery:** May 2026

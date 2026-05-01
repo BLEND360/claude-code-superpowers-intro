@@ -23,6 +23,11 @@ The existing canonical demo across both workshops is **PromptCraft** (a
 Streamlit prompt-refinement assistant on the repo's `solution` branch). This
 brainstorm treats PromptCraft as one option among many, not a fixture.
 
+> **Scope of this doc:** this is the *trimmed* version. A wider field of 9
+> candidates was evaluated in conversation; only the candidates that appear in
+> the top recommendations for interpretation A or interpretation C are
+> profiled here.
+
 ---
 
 ## Background — How the rubric was derived
@@ -156,13 +161,6 @@ browser when UI choice points appear; (5) produces a dated, git-committed
 design doc that self-reviews for placeholders/ambiguity/scope and then
 human-reviews before writing-plans runs.
 
-### Visual companion — confirmation of mechanics
-
-- **Lives at:** `skills/brainstorming/SKILL.md` (lines 148–165) and `skills/brainstorming/visual-companion.md`
-- **Trigger:** Claude offers it (in its own dedicated message, no other content) during step 2 of the brainstorming checklist *when it anticipates upcoming questions will involve visual content* — mockups, layouts, wireframes, architecture diagrams, side-by-side visual comparisons.
-- **Per-question decision:** Once accepted, the test is "would the user understand this better by seeing it than reading it?" Conceptual questions still go through the terminal; only genuinely visual questions render in the browser.
-- **Mechanics:** local Node server watches a directory and serves HTML fragments with click-to-select options; selections write to `$STATE_DIR/events`.
-
 ### Demo-relevant scoring axes (derived from the rubric)
 
 - **Architectural fork depth** — how many genuinely different valid architectures exist
@@ -188,89 +186,58 @@ Each candidate must satisfy ALL of:
 
 ---
 
-## Section 3 — Candidates (full detail)
+## Section 3 — Candidate profiles (only those appearing in top recommendations)
 
-### 1. PromptCraft *(existing baseline)*
-
-- **Pitch:** Paste a rough LLM prompt, get clarifying Qs and 2-3 refined variants with side-by-side test output.
-- **Architectures:** (a) Pure-LLM iterative refinement (current); (b) rule-based template substitution; (c) hybrid — rules choose a template, LLM fills slots; sub-fork: single-shot vs multi-turn refinement.
-- **Visual choice point:** Comparison panel layout — chat-style vs side-by-side columns vs diff-view.
-- **Curveball:** Multi-turn refinement requirement (already wired into the W1 90-min bonus injection prompt in `magic-prompts.md`).
-- **Why harder for plan mode:** Seed prompt "help refine prompts" is genuinely vague — plan mode picks the first interpretation. Single-shot vs multi-turn is the exact spec contradiction the curveball exploits.
-- **Risk:** Audience sees this app *later* in the workshop arc, so the brainstorm "wow" lands before they have a mental anchor — but they may also feel they're being shown the same thing twice.
-
-### 2. CSV Sentinel
-
-- **Pitch:** Drop a CSV, get an automated data-quality report — missing values, type drift, suspect outliers, plain-English narration of issues, downloadable Markdown.
-- **Architectures:** (a) Pure-rule statistical (pandas-profiling-style); (b) LLM-narrated insights from rule-derived stats; (c) hybrid — rules detect, LLM explains in plain English with severity.
-- **Visual choice point:** Report layout — single scrolling page vs tabbed (overview/columns/correlations/issues) vs sidebar drill-down.
-- **Curveball:** "Actually we want to *compare two CSVs* (this week vs last week) not profile one" — completely different feature shape.
-- **Why harder for plan mode:** Audience hears "CSV quality report", plan mode commits to a pandas-profiling clone in 30 seconds, missing the LLM-narration option entirely. The hybrid third option only emerges from explicit trade-off prompting.
-- **Risk:** Close to existing libs (ydata-profiling) — someone may say "why not just use the library?" Easy to deflect ("we want the LLM narration"), but it's a glitch.
-
-### 3. Eval Lab
+### Eval Lab — *interpretation A's #1*
 
 - **Pitch:** Paste a prompt, run it across N model configs (model × temperature × system prompt), see outputs side-by-side, mark winners, accumulate a scoreboard.
 - **Architectures:** (a) Manual win-marking only; (b) LLM-as-judge with rubric; (c) both with disagreement flagging; orthogonal fork: in-memory only vs JSON-on-disk vs SQLite.
 - **Visual choice point:** Comparison grid — N-column side-by-side vs tabbed vs accordion; scoreboard layout.
 - **Curveball:** "Add automatic LLM-judge scoring on a custom rubric."
 - **Why harder for plan mode:** Two orthogonal forks (judge type × persistence) compound — plan mode picks one path through a 2D space without acknowledging the other dimension exists.
-- **Risk:** Comparison-panel UX overlaps PromptCraft's; audience may see them as the same shape.
+- **W2 fit:** ★★★ Filesystem MCP for prompt/eval libraries, ★★★ Context7 for Anthropic SDK refs, ★★★ GitHub MCP for shared eval repos, ★★ rubric-author custom skill, **★★★ token-cost guardrail hook** (block runs over $X — the most natural hook in the shortlist).
+- **Risk:** Comparison-panel UX overlaps PromptCraft's — if PromptCraft is also kept, audience may pattern-match.
 
-### 4. Insight Cards
+### Insight Cards — *appears in every top recommendation*
 
 - **Pitch:** Drop a CSV, get 3-5 auto-generated insight cards — each is a chart + a one-line LLM takeaway. The "BI starter pack."
 - **Architectures:** (a) Rule-based candidate enumeration (categorical breakdowns, time series, correlations) → LLM ranks → render; (b) LLM picks columns directly from schema; (c) heuristic-only, no LLM.
-- **Visual choice point:** Card grid — uniform grid vs masonry vs vertical scroll; chart-on-top vs chart-on-side; "explore deeper" affordance.
+- **Visual choice point:** Card grid — uniform grid vs masonry vs vertical scroll; chart-on-top vs chart-on-side; "explore deeper" affordance. **Strongest visual-companion trigger in the entire shortlist** — any honest brainstorm of card layout demands mockups.
 - **Curveball:** "Add NL query — user asks for a specific insight, not just sees auto-generated ones."
 - **Why harder for plan mode:** The rule-vs-LLM column-selection fork is non-obvious unless explicitly surfaced; plan mode plans the backend pipeline first and treats layout as an afterthought.
+- **W2 fit:** ★★★ Filesystem MCP for CSVs, ★★ Context7 for chart-lib docs, ★★★ narration-style custom skill, ★ no obvious killer hook (the W2 weakness — would need to engineer one rather than have it fall out of the design).
 - **Risk:** Live chart generation can flake (matplotlib/altair quirks under Streamlit). Mitigate by pre-vetting the demo CSV.
 
-### 5. RAG Reader
+### CSV Sentinel — *interpretation A's #3 (balanced honourable mention)*
 
-- **Pitch:** Drop a folder of Markdown docs, ask questions, get answers with inline citations.
-- **Architectures:** (a) Stuff-everything-into-context (no retrieval); (b) keyword/TF-IDF retrieval; (c) in-memory embeddings with persistence; orthogonal fork: rebuild-index-on-load vs persist.
-- **Visual choice point:** Citation chrome — inline footnote chips vs side panel showing source vs hover-to-preview.
-- **Curveball:** "Docs are now too large for context — we need real retrieval." (Forces architecture pivot mid-implementation.)
-- **Why harder for plan mode:** Three valid architectures with very different complexity profiles; plan mode jumps to embeddings without considering "just stuff it in context" as a legitimate v1.
-- **Risk:** Embeddings setup is a yak-shave (model download, dim choice). RAG is also overplayed — audience may roll their eyes at "another RAG demo."
+- **Pitch:** Drop a CSV, get an automated data-quality report — missing values, type drift, suspect outliers, plain-English narration of issues, downloadable Markdown.
+- **Architectures:** (a) Pure-rule statistical (pandas-profiling-style); (b) LLM-narrated insights from rule-derived stats; (c) hybrid — rules detect, LLM explains in plain English with severity. **Cleanest triple-architecture fork in the shortlist.**
+- **Visual choice point:** Report layout — single scrolling page vs tabbed (overview/columns/correlations/issues) vs sidebar drill-down.
+- **Curveball:** "Actually we want to *compare two CSVs* (this week vs last week) not profile one" — completely different feature shape.
+- **Why harder for plan mode:** Audience hears "CSV quality report", plan mode commits to a pandas-profiling clone in 30 seconds, missing the LLM-narration option entirely. The hybrid third option only emerges from explicit trade-off prompting.
+- **W2 fit:** ★★★ Filesystem MCP for folder-of-CSVs, ★★ Context7 for pandas docs, ★★★ data-quality-rubric custom skill, ★★ PII-detection PreToolUse hook (plausible but not as crisp as Eval Lab's cost guardrail).
+- **Risk:** Close to existing libs (ydata-profiling) — someone may say "why not just use the library?" Easy to deflect ("we want LLM narration tuned to this dataset's quirks").
 
-### 6. Meeting Notes Tidier
-
-- **Pitch:** Paste a raw transcript, get structured notes — summary, decisions, action items with owners.
-- **Architectures:** (a) Single LLM call producing Markdown; (b) chained extraction (separate calls per section); (c) structured-output schema → typed render with editable fields.
-- **Visual choice point:** Output layout — single Markdown blob vs tabbed sections vs interactive editable/checkable action-item list.
-- **Curveball:** "Now also handle multiple meetings and roll them up into a weekly digest."
-- **Why harder for plan mode:** Output structure *is* the entire UX question; plan mode commits to a Markdown blob and never surfaces the editable-list option.
-- **Risk:** Feels too easy — audience may not feel the architectural fork as load-bearing.
-
-### 7. SQL Coach
-
-- **Pitch:** Natural-language → SQL with explanation, against a small embedded SQLite of toy data.
-- **Architectures:** (a) LLM-only with schema in prompt; (b) LLM + execute + verify-loop on errors; (c) read-only execution preview with row count before running.
-- **Visual choice point:** Layout — split (NL/SQL/results stack) vs tabs vs sidebar schema browser + main pane.
-- **Curveball:** "Now support multi-dialect (Snowflake/BigQuery syntax)" or "schema is ambiguous — needs disambiguation UI."
-- **Why harder for plan mode:** Execute-vs-not and schema-presentation are both real architectural choices that plan mode skips; the verify-loop option only emerges in trade-off discussion.
-- **Risk:** Shipping a sample SQLite is a small yak-shave. SQL safety is irrelevant in demo but a pedant may raise it.
-
-### 8. Rubric Reviewer
-
-- **Pitch:** Paste text (essay, PR description, exec summary), pick a rubric, get scored feedback per criterion with rewrite suggestions.
-- **Architectures:** (a) Rubric-as-prompt-template, single call; (b) rubric-as-structured-criteria with per-criterion LLM call; (c) single-call with structured output schema.
-- **Visual choice point:** Feedback layout — score bars + collapsible explanations vs side-by-side annotated text vs report-card grid.
-- **Curveball:** "Let users define their own rubric in the UI."
-- **Why harder for plan mode:** Three rubric architectures have real trade-offs (cost vs latency vs explanation quality); plan mode picks the cheapest without surfacing the others.
-- **Risk:** Same shape as PromptCraft (paste-text-get-feedback) — risks feeling redundant within the workshop arc.
-
-### 9. Customer Email Triager *(new — added during interpretation C analysis)*
+### Customer Email Triager — *interpretation C's W2 winner (only viable under C)*
 
 - **Pitch:** Drop a folder of customer emails, classify by issue type, auto-draft responses in the company's tone of voice.
 - **Architectures:** (a) Rule-based classification (keyword); (b) zero-shot LLM classifier; (c) few-shot LLM with examples; orthogonal fork: single-classifier vs hierarchical (issue type → subtype).
 - **Visual choice point:** Triage UI layout — list view vs kanban-by-category vs swipeable card stack.
 - **Curveball:** "Actually we need to also auto-draft responses, not just classify."
 - **Why harder for plan mode:** Classifier architecture has real cost/accuracy trade-offs; plan mode picks LLM-only and skips the keyword baseline that consultants often want for cost reasons.
-- **Risk:** "Sending" must be faked (write to a file, not actually send) — minor yak-shave.
-- **Why this candidate exists only under interpretation C:** Its W1 forks are mid-strength but its W2 hook story is the strongest in the entire shortlist (see Section 5).
+- **W2 fit:** ★★★ Filesystem MCP scans the email folder (no auth needed), **★★★ company-tone-of-voice custom skill — the most natural skill fit in the entire shortlist** (every consultancy has a tone guide), **★★★ PreToolUse hook blocks drafts containing competitor names / unredacted PII / unapproved promises — the most viscerally consultant-relatable hook in the shortlist** ("we almost sent the wrong thing" stories everywhere).
+- **Risk:** "Sending" must be faked (write to a file, not actually send) — minor yak-shave. **Build cost: high** — needs a fresh codebase and sample inbox.
+- **Why this candidate exists only under interpretation C:** Its W1 forks are mid-strength; only worth picking when W2 can be optimised independently.
+
+### PromptCraft — *baseline; interpretation C's pragmatic W2*
+
+- **Pitch:** Paste a rough LLM prompt, get clarifying Qs and 2-3 refined variants with side-by-side test output.
+- **Architectures:** (a) Pure-LLM iterative refinement (current); (b) rule-based template substitution; (c) hybrid — rules choose a template, LLM fills slots; sub-fork: single-shot vs multi-turn refinement.
+- **Visual choice point:** Comparison panel layout — chat-style vs side-by-side columns vs diff-view.
+- **Curveball:** Multi-turn refinement requirement (already wired into the W1 90-min bonus injection prompt in `magic-prompts.md`).
+- **Why harder for plan mode:** Seed prompt "help refine prompts" is genuinely vague — plan mode picks the first interpretation. Single-shot vs multi-turn is the exact spec contradiction the curveball exploits.
+- **W2 fit:** Already wired — Context7 MCP, custom skill, Snowflake hook all proven and documented in existing W2 materials. **Zero build cost.**
+- **Risk:** Slight narrative incoherence if used as W2-only ("abandoned baseline reused for W2") — minor.
 
 ---
 
@@ -289,28 +256,7 @@ auth are:
 
 Off the table without auth: Snowflake, Notion, Gmail, Calendar, Slack, Google Drive.
 
-### Updated W2-host scoring axis
-
-| Candidate | Filesystem MCP | Context7 MCP | GitHub MCP | Custom skill | **Hook story** |
-|---|---|---|---|---|---|
-| **Eval Lab** | ★★★ load prompt/eval libs | ★★★ Anthropic SDK refs | ★★★ shared eval repos | ★★ rubric-author skill | **★★★ token-cost guardrail** |
-| **CSV Sentinel** | ★★★ folder-of-CSVs | ★★ pandas docs | ★ | ★★★ data-quality-rubric | ★★ PII-detection PreToolUse |
-| **Insight Cards** | ★★★ load CSVs | ★★ chart-lib docs | ★ | ★★★ narration-style skill | ★ no obvious killer hook |
-| **RAG Reader** | ★★★ doc folder | ★★ embedding docs | ★★★ load READMEs | ★★ citation-style skill | ★ |
-| PromptCraft | ★★ | ★★★ (wired) | ★ | ★★★ (wired) | ★★★ (wired) |
-| SQL Coach | ★ SQLite only | ★ | ★ | ★★ dialect-translator | ★★★ block DROP — but **collapses without Snowflake** |
-| Meeting Notes | ★★★ | ★ | ★ | ★★ | ★ |
-| Rubric Reviewer | ★★ | ★ | ★ | ★★★ | ★★ |
-
-**Biggest mover:** SQL Coach was about to leap to #1 with Snowflake. Without
-it, its W2 story collapses to "local SQLite + dialect skill" — fine but not
-magical. Drops out of the top tier.
-
-**Biggest unlock:** Eval Lab's hook story is the most natural in the entire
-shortlist. *"Before any multi-prompt eval run, the hook estimates token cost
-and blocks anything over $X."* Every AI engineering team genuinely wants this.
-
-### Re-ranked top picks for interpretation A
+### Top picks for interpretation A
 
 #### 🥇 Eval Lab — best **combined** story
 
@@ -323,9 +269,8 @@ and blocks anything over $X."* Every AI engineering team genuinely wants this.
 
 #### 🥈 Insight Cards — best **W1** if you accept a weaker W2
 
-- **W1 brainstorm:** still the strongest visual-companion trigger of the entire shortlist (card grid demands mockups). Cleanest "wow" moment for the most important pedagogical demo.
+- **W1 brainstorm:** strongest visual-companion trigger in the entire shortlist. Cleanest "wow" moment for the most important pedagogical demo.
 - **W2:** Filesystem MCP for CSVs and Context7 for chart-lib docs both fit. A "narration-style" custom skill is natural. **But the hook story is weak** — there's no obvious safety check that doesn't feel contrived.
-- **Curveball:** "Add NL-driven custom insights" — forces re-brainstorm of the input loop.
 - **Trade-off:** if the W2 90-min bonus has to land hard, this candidate forces you to invent a hook rather than have one fall out of the design.
 
 > *Plan mode would look* **blind to UX** — design the chart pipeline first, treat layout as a footnote. *Superpowers would look* **design-led** — fire the visual companion early, mock card-grid options before code is planned.
@@ -336,7 +281,7 @@ and blocks anything over $X."* Every AI engineering team genuinely wants this.
 - W2 hook (PII detection on file reads) is plausible but not as crisp as Eval Lab's cost guardrail.
 - Universal consultant magnetism is its main asset.
 
-### Recommendation under A-without-Snowflake
+### Recommendation under interpretation A
 
 If the **W2 hook demo matters as much as the W1 brainstorm**, pick **Eval Lab**.
 It's the only candidate where every workshop component falls out of the design
@@ -355,9 +300,8 @@ have one emerge naturally.
 1. **W1 can be ruthlessly optimised for the brainstorm-vs-plan-mode contrast.** Best architectural forks, hardest visual-companion trigger, cleanest curveball. No "but does this also host an MCP nicely?" trade-off.
 2. **W2 can be ruthlessly optimised for the MCP / custom-skill / hook trio.** No "but does this also have a 5-min brainstorm with three valid architectures?" trade-off.
 
-It also opens a fresh W2 candidate — **Customer Email Triager** (see candidate
-#9 in Section 3) — which was previously dismissed under interpretation A
-because its W1 forks are mid-strength.
+It also opens **Customer Email Triager** as a W2 candidate — previously
+dismissed under interpretation A because its W1 forks are mid-strength.
 
 ### The pedagogical question first
 
@@ -369,45 +313,11 @@ are valid; pick deliberately:
 - **A's narrative wins** if the audience is junior — they get to deepen one mental model and see it productionise.
 - **C's narrative wins** if the audience might suspect *"this only works for prompt-refinement-shaped problems"* — different W1 and W2 shapes proves generality.
 
-### Best W1 (pure W1 lens)
-
-**Insight Cards** wins outright. The card-grid layout is the most naturally
-visual choice point in the entire shortlist — *any* honest brainstorm forces
-mockups (uniform vs masonry, chart-on-top vs chart-on-side, hover-to-explore?),
-so the visual companion offer fires organically and lands hard. The
-rule-vs-LLM column-selection fork is meaty. The "auto insights → user-driven
-NL queries" curveball is the kind of pivot every BI consultant has lived.
-Without the W2-host handcuff, there's no reason not to pick it.
-
-Honourable mention: **CSV Sentinel**'s triple architecture fork is cleaner,
-but the visual question is weaker. If the brainstorm should peak on
-architecture trade-offs and the visual companion firing on a less dramatic
-question is acceptable, Sentinel is defensible.
-
-### Best W2 (pure W2 lens)
-
-Three real contenders now that we're not constrained by W1 fit:
-
-#### 🆕 Customer Email Triager *(only viable under C)*
-
-- **W2 Demo 1 (MCP):** Filesystem MCP to scan the email folder — natural, no auth needed.
-- **W2 Demo 2 (custom skill):** A `company-tone-of-voice` skill that controls how responses are drafted. **Most natural custom-skill fit in the entire shortlist** — every consultancy has a tone guide.
-- **W2 90-min bonus (hook):** PreToolUse hook that blocks any draft containing competitor names, unredacted PII, or unapproved promises. **Most viscerally consultant-relatable hook of any candidate** — every consultant has a "we almost sent the wrong thing" story.
-- **Build cost:** High — needs a fresh codebase, fake-send affordance, sample inbox.
-
-#### Eval Lab
-
-- Cost-guardrail hook (block runs over $X) is the killer feature for AI-eng audience.
-- MCP/skill/hook all line up naturally.
-- Slightly less universally consultant-relatable (more AI-eng-coded than data-coded).
-
-#### PromptCraft
-
-- Already wired. Already proven. Existing workshop materials already structured around it.
-- Zero build cost. Maximum operational safety.
-- Cost: slight narrative incoherence — "abandoned baseline reused for W2."
-
 ### Suggested pairings under C
+
+W1 winner is **Insight Cards** in every pairing — its visual-companion trigger
+and architectural forks dominate the W1-only lens. The W2 choice is the
+variable.
 
 | Pairing | W1 | W2 | Build cost | Narrative |
 |---|---|---|---|---|
@@ -415,7 +325,7 @@ Three real contenders now that we're not constrained by W1 fit:
 | **🥈 Best balance** | Insight Cards | Eval Lab | Medium-high | "Two AI/data tools, both via the same workflow" |
 | **🥉 Pragmatic** | Insight Cards | PromptCraft | Low (W2 already built) | "Optimise the W1 moment, reuse the existing W2" |
 
-### Recommendation under C
+### Recommendation under interpretation C
 
 **🥇 Insight Cards + Customer Email Triager** is the strongest *demo* pair.
 Insight Cards gives the most dramatic W1 visual-companion moment in the

@@ -2,6 +2,8 @@
 
 This guide introduces the [superpowers](https://github.com/obra/superpowers) plugin for Claude Code — a collection of skills that bring structured workflows to AI-assisted development.
 
+> **Workshop demo project under review.** A brainstorm of candidate W1 demo projects (and their W2 extensions) is in progress at [docs/workshops-brainstorming/2026-05-01-w1-demo-candidates-brainstorm.md](docs/workshops-brainstorming/2026-05-01-w1-demo-candidates-brainstorm.md). The PromptCraft-based materials below describe the current baseline; the brainstorm evaluates whether to keep, replace, or split it across the two workshops.
+
 ## Who This Is For
 
 - **Data scientists** building LLM-powered tools and pipelines
